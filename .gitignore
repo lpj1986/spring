@@ -1,6 +1,8 @@
 # Compiled class file
 *.class
 
+logs/
+
 # Log file
 *.log
 
@@ -26,3 +28,6 @@ hs_err_pid*
 #intellij idea
 *.iml
 .idea/
+
+
+target/
