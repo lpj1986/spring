@@ -8,16 +8,35 @@
     </description>
 
     <!-- id: 对应beanName; name: 对应bean的别名，可多个 -->
-    <bean id="cInjection" name="cI,cI2,cI3" class="win.elegentjs.ioc.CInjection">
+    <!-- depends-on 用于显示控制加载流程，有明确的ref时不需要，一般用的也少 -->
+    <bean id="cInjection" name="cI,cI2,cI3" class="win.elegentjs.ioc.CInjection" depends-on="userService">
         <constructor-arg index="0" ref="userService"/>
     </bean>
 
     <bean id="setterInjection" class="win.elegentjs.ioc.SetterInjection">
         <property name="userService" ref="userService"/>
+        <property name="nameList">
+            <list>
+                <value>1</value>
+                <value>2</value>
+            </list>
+        </property>
      </bean>
     <alias name="setterInjection" alias="sI"/>
 
     <bean id="userService" class="win.elegentjs.ioc.UserService"/>
+
+
+
+    <bean id="shape" class="win.elegentjs.ioc.factory.StaticShapeFactory" factory-method="getInstance">
+        <constructor-arg index="0" value="hello"/>
+    </bean>
+
+
+    <bean id="instanceFactory" class="win.elegentjs.ioc.factory.InstanceShapeFactory"/>
+
+    <bean id="shape2" factory-bean="instanceFactory" factory-method="getInstance"/>
+
 
     <!-- import -->
    <!-- <import resource="classpath:xxx.xml"/>-->
