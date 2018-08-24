@@ -3,14 +3,22 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="cInjection" class="win.elegentjs.ioc.CInjection">
+    <description>
+        这是一个最简单的spring IOC
+    </description>
+
+    <!-- id: 对应beanName; name: 对应bean的别名，可多个 -->
+    <bean id="cInjection" name="cI,cI2,cI3" class="win.elegentjs.ioc.CInjection">
         <constructor-arg index="0" ref="userService"/>
     </bean>
 
     <bean id="setterInjection" class="win.elegentjs.ioc.SetterInjection">
         <property name="userService" ref="userService"/>
      </bean>
-
+    <alias name="setterInjection" alias="sI"/>
 
     <bean id="userService" class="win.elegentjs.ioc.UserService"/>
+
+    <!-- import -->
+   <!-- <import resource="classpath:xxx.xml"/>-->
 </beans>

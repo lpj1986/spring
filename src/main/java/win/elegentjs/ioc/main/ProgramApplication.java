@@ -1,4 +1,4 @@
-package win.elegentjs.ioc;
+package win.elegentjs.ioc.main;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -8,6 +8,9 @@ import org.springframework.beans.factory.config.ConstructorArgumentValues;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.support.RootBeanDefinition;
+import win.elegentjs.ioc.CInjection;
+import win.elegentjs.ioc.SetterInjection;
+import win.elegentjs.ioc.UserService;
 
 /**
  * 以编码方式将bean注册到IOC容器
