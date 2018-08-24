@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="cInjection" class="win.elegentjs.ioc.CInjection">
-        <constructor-arg ref="userService"/>
+        <constructor-arg index="0" ref="userService"/>
     </bean>
 
     <bean id="setterInjection" class="win.elegentjs.ioc.SetterInjection">
