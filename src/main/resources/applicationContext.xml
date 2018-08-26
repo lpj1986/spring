@@ -7,6 +7,14 @@
         这是一个最简单的spring IOC
     </description>
 
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:appconfig.properties</value>
+            </list>
+        </property>
+    </bean>
+
     <!-- id: 对应beanName; name: 对应bean的别名，可多个 -->
     <!-- depends-on 用于显示控制加载流程，有明确的ref时不需要，一般用的也少 -->
     <bean id="cInjection" name="cI,cI2,cI3" class="win.elegentjs.ioc.CInjection" depends-on="userService">
@@ -24,7 +32,9 @@
      </bean>
     <alias name="setterInjection" alias="sI"/>
 
-    <bean id="userService" class="win.elegentjs.ioc.UserService"/>
+    <bean id="userService" class="win.elegentjs.ioc.UserService">
+        <property name="name" value="${name}"/>
+    </bean>
 
 
 

@@ -3,8 +3,10 @@ package win.elegentjs.ioc.main;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
+import org.springframework.core.io.ClassPathResource;
 import win.elegentjs.ioc.CInjection;
 import win.elegentjs.ioc.SetterInjection;
 
@@ -19,6 +21,12 @@ public class ConfigApplication {
 
         // or
         //beanFactory = new XmlBeanFactory(new ClassPathResource("applicationContext.xml"));
+
+        // bean post processor
+        PropertyPlaceholderConfigurer propertyPlaceholderConfigurer = new PropertyPlaceholderConfigurer();
+        propertyPlaceholderConfigurer.setLocation(new ClassPathResource("appconfig.properties"));
+
+        propertyPlaceholderConfigurer.postProcessBeanFactory((DefaultListableBeanFactory) beanFactory);
 
 
         CInjection injection = (CInjection) beanFactory.getBean("cInjection");
