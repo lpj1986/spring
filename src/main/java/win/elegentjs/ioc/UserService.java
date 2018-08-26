@@ -1,10 +1,14 @@
 package win.elegentjs.ioc;
 
-public class UserService {
+import win.elegentjs.ioc.beanpostprocessor.PasswordDecodable;
+
+public class UserService implements PasswordDecodable {
 
     private String name;
 
     private Integer age;
+
+    private String password;
 
     public String getName() {
         return name;
@@ -23,10 +27,22 @@ public class UserService {
     }
 
     @Override
+    public String getEncodedPassword() {
+        return password;
+    }
+
+    @Override
+    public void setDecodedPassword(String password) {
+        this.password = password;
+    }
+
+
+    @Override
     public String toString() {
         return "UserService{" +
                 "name='" + name + '\'' +
                 ", age=" + age +
+                ", password='" + password + '\'' +
                 '}';
     }
 }

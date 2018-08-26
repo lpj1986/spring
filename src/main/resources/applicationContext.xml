@@ -35,6 +35,7 @@
     <bean id="userService" class="win.elegentjs.ioc.UserService">
         <property name="name" value="${name}"/>
         <property name="age" value="20"/>
+        <property name="decodedPassword" value="haha"/>
     </bean>
 
 
@@ -48,6 +49,11 @@
 
     <bean id="shape2" factory-bean="instanceFactory" factory-method="getInstance"/>
 
+
+
+    <bean class="win.elegentjs.ioc.beanpostprocessor.PasswordDecodePostProcessor">
+
+    </bean>
 
     <!-- import -->
    <!-- <import resource="classpath:xxx.xml"/>-->
