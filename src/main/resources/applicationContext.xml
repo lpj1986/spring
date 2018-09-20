@@ -55,6 +55,8 @@
 
     </bean>
 
+    <bean class="win.elegentjs.ioc.event.LoadCompleteListener"/>
+
     <!-- import -->
    <!-- <import resource="classpath:xxx.xml"/>-->
 </beans>

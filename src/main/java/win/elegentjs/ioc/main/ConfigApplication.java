@@ -2,11 +2,11 @@ package win.elegentjs.ioc.main;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.config.PropertyOverrideConfigurer;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
-import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import win.elegentjs.ioc.CInjection;
 import win.elegentjs.ioc.SetterInjection;
@@ -16,9 +16,12 @@ public class ConfigApplication {
 
     public static void main(String[] args) {
 
-        BeanFactory beanFactory = new DefaultListableBeanFactory();
-        XmlBeanDefinitionReader xmlBeanDefinitionReader = new XmlBeanDefinitionReader((DefaultListableBeanFactory) beanFactory);
-        xmlBeanDefinitionReader.loadBeanDefinitions("classpath:applicationContext.xml");
+        ApplicationContext beanFactory = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+
+
+        //BeanFactory beanFactory = new DefaultListableBeanFactory();
+        //XmlBeanDefinitionReader xmlBeanDefinitionReader = new XmlBeanDefinitionReader((DefaultListableBeanFactory) beanFactory);
+        //xmlBeanDefinitionReader.loadBeanDefinitions("classpath:applicationContext.xml");
 
         // or
         //beanFactory = new XmlBeanFactory(new ClassPathResource("applicationContext.xml"));
