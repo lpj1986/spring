@@ -1,4 +1,4 @@
-package win.elegentjs.aop.dynamicproxy;
+package win.elegentjs.aop.jdkdynamicproxy;
 
 import java.lang.reflect.Proxy;
 

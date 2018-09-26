@@ -1,4 +1,4 @@
-package win.elegentjs.aop.dynamicproxy;
+package win.elegentjs.aop.jdkdynamicproxy;
 
 /**
  * 被访问对象抽象
