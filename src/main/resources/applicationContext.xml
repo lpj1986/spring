@@ -57,6 +57,7 @@
 
     <bean class="win.elegentjs.ioc.event.LoadCompleteListener"/>
 
-    <!-- import -->
-   <!-- <import resource="classpath:xxx.xml"/>-->
+
+    <bean id="performanceInterceptor" class="win.elegentjs.aop.advice.PerformanceInterceptor"/>
+
 </beans>
