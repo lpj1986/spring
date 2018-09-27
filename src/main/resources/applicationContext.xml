@@ -63,14 +63,14 @@
         <property name="pattern" value=".+Service"/>
     </bean>
 
-    <bean class="win.elegentjs.aop.advisor.MyDefaultPointcutAdvisor">
+    <bean id="advisor" class="win.elegentjs.aop.advisor.MyDefaultPointcutAdvisor">
         <property name="advice" ref="performanceInterceptor"/>
         <property name="pointcut" ref="myPointcut"/>
     </bean>
 
     <bean id="performanceService" class="win.elegentjs.aop.advisor.PerformanceService"/>
 
-    <bean id="proxyFactory" class="org.springframework.aop.framework.ProxyFactoryBean">
+    <bean id="proxyFactory" class="org.springframework.aop.framework.ProxyFactory">
     </bean>
 
 </beans>
