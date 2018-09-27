@@ -1,5 +1,6 @@
 package win.elegentjs.aop.advice.introduction;
 
+import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.aop.support.DelegatingIntroductionInterceptor;
 
 public class DelegatingIntroductionInteceptorTest {
@@ -9,8 +10,13 @@ public class DelegatingIntroductionInteceptorTest {
 
         DelegatingIntroductionInterceptor interceptor = new DelegatingIntroductionInterceptor(delegate);
 
-        // 162?
+        ProxyFactory weaver = new ProxyFactory(new DeveloperImpl());
 
+        weaver.addAdvice(interceptor);
+
+        Tester tester = (Tester) weaver.getProxy();
+
+        tester.test();
 
 
 

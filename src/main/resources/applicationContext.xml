@@ -70,4 +70,7 @@
 
     <bean id="performanceService" class="win.elegentjs.aop.advisor.PerformanceService"/>
 
+    <bean id="proxyFactory" class="org.springframework.aop.framework.ProxyFactoryBean">
+    </bean>
+
 </beans>
