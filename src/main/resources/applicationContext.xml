@@ -59,5 +59,15 @@
 
 
     <bean id="performanceInterceptor" class="win.elegentjs.aop.advice.PerformanceInterceptor"/>
+    <bean id="myPointcut" class="win.elegentjs.aop.pointcut.MyPointcut">
+        <property name="pattern" value=".+Service"/>
+    </bean>
+
+    <bean class="win.elegentjs.aop.advisor.MyDefaultPointcutAdvisor">
+        <property name="advice" ref="performanceInterceptor"/>
+        <property name="pointcut" ref="myPointcut"/>
+    </bean>
+
+    <bean id="performanceService" class="win.elegentjs.aop.advisor.PerformanceService"/>
 
 </beans>
