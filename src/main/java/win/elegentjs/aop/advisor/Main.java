@@ -38,5 +38,10 @@ public class Main {
 
         performanceService.printService();
 
+
+        // 采用容器ProxyFactoryBean的形式
+        performanceService = (PerformanceService) context.getBean("proxy");
+        performanceService.printService();
+
     }
 }

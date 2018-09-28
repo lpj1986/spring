@@ -70,7 +70,15 @@
 
     <bean id="performanceService" class="win.elegentjs.aop.advisor.PerformanceService"/>
 
-    <bean id="proxyFactory" class="org.springframework.aop.framework.ProxyFactory">
+    <bean id="proxyFactory" class="org.springframework.aop.framework.ProxyFactory"/>
+
+    <bean id="proxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target" ref="performanceService"/>
+        <property name="interceptorNames">
+            <list>
+                <value>advisor</value>
+            </list>
+        </property>
     </bean>
 
 </beans>
