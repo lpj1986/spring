@@ -6,6 +6,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.util.StopWatch;
 
+/**
+ * Around Advice
+ */
 public class PerformanceInterceptor implements MethodInterceptor {
 
     private static final Log log = LogFactory.getLog(PerformanceInterceptor.class);
