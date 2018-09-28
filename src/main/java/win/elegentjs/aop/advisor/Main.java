@@ -1,7 +1,5 @@
 package win.elegentjs.aop.advisor;
 
-import org.springframework.aop.PointcutAdvisor;
-import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -24,24 +22,14 @@ public class Main {
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 
-        ProxyFactory proxyFactory = (ProxyFactory) context.getBean("proxyFactory");
-        PointcutAdvisor advisor = (PointcutAdvisor) context.getBean("advisor");
-
-        proxyFactory.addAdvisor(advisor);
-
 
         PerformanceService performanceService = (PerformanceService) context.getBean("performanceService");
-
-        proxyFactory.setTarget(performanceService);
-
-        performanceService = (PerformanceService) proxyFactory.getProxy();
-
         performanceService.printService();
 
 
         // 采用容器ProxyFactoryBean的形式
-        performanceService = (PerformanceService) context.getBean("proxy");
-        performanceService.printService();
+        //performanceService = (PerformanceService) context.getBean("proxy");
+        //performanceService.printService();
 
     }
 }
