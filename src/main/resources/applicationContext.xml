@@ -104,8 +104,11 @@
     <bean class="org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator"/>
     -->
 
-    <aop:aspectj-autoproxy/>
+    <aop:config>
+        <aop:aspect ref="aspect"/>
+    </aop:config>
 
-    <bean class="win.elegentjs.aop.aspectj.PerformanceAspect"/>
+
+    <bean id="aspect" class="win.elegentjs.aop.aspectj.PerformanceAspect"/>
 
 </beans>
