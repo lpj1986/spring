@@ -1,9 +1,12 @@
 package win.elegentjs.transaction;
 
-import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class FooService {
 
@@ -15,9 +18,19 @@ public class FooService {
         TransactionStatus transactionStatus = transactionManager.getTransaction(definition);
 
         try {
-            // TODO ...
 
-        } catch (DataAccessException e) {
+            Connection conn = TransactionResourceManager.getResource();
+            PreparedStatement pstmt = conn.prepareStatement("select * from T_BASE_RESOURCE");
+
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                System.out.println(rs.getString(1));
+            }
+
+
+
+        } catch (Exception e) {
             transactionManager.rollback(transactionStatus);
         }
 

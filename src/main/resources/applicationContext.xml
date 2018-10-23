@@ -132,7 +132,6 @@
         <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
         <property name="minEvictableIdleTimeMillis" value="300000" />
 
-        <property name="validationQuery" value="SELECT 'x'" />
         <property name="testWhileIdle" value="true" />
         <property name="testOnBorrow" value="false" />
         <property name="testOnReturn" value="false" />
@@ -150,7 +149,13 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
+    <bean id="transactionManager" class="win.elegentjs.transaction.JdbcTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
 
+    <bean id="fooService" class="win.elegentjs.transaction.FooService">
+        <property name="transactionManager" ref="transactionManager"/>
+    </bean>
 
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.simple.SimpleJdbcTemplate">
         <constructor-arg index="0" ref="dataSource">
