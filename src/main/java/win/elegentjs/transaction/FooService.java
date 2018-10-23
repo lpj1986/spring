@@ -1,4 +1,4 @@
-package win.elegentjs.transaction.jta;
+package win.elegentjs.transaction;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.PlatformTransactionManager;
