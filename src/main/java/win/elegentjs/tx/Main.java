@@ -1,4 +1,4 @@
-package win.elegentjs.transaction;
+package win.elegentjs.tx;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

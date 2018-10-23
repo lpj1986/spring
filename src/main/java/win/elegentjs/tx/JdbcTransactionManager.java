@@ -1,4 +1,4 @@
-package win.elegentjs.transaction;
+package win.elegentjs.tx;
 
 import org.springframework.transaction.*;
 import org.springframework.transaction.support.DefaultTransactionStatus;

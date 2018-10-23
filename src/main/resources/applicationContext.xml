@@ -149,11 +149,11 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <bean id="transactionManager" class="win.elegentjs.transaction.JdbcTransactionManager">
+    <bean id="transactionManager" class="win.elegentjs.tx.JdbcTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <bean id="fooService" class="win.elegentjs.transaction.FooService">
+    <bean id="fooService" class="win.elegentjs.tx.FooService">
         <property name="transactionManager" ref="transactionManager"/>
     </bean>
 
