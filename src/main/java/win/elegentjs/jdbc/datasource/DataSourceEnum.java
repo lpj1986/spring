@@ -1,5 +1,9 @@
 package win.elegentjs.jdbc.datasource;
 
+/**
+ * 数据源枚举类型
+ * @author liupeijun
+ */
 public enum DataSourceEnum {
     /**
      * 主库

@@ -1,5 +1,10 @@
 package win.elegentjs.jdbc.datasource;
 
+/**
+ * 持有ThreadLocal的枚举类型类
+ *
+ * @author liupeijun
+ */
 public class DataSourceTypeManager {
 
     private static final ThreadLocal<DataSourceEnum> dataSourceTypes = new ThreadLocal<>();
