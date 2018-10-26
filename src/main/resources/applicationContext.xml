@@ -145,16 +145,16 @@
     </bean>
 
 
-    <bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <bean id="transactionManager" class="win.elegentjs.tx.JdbcTransactionManager">
+    <bean id="transactionManager2" class="win.elegentjs.tx.JdbcTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
     <bean id="fooService" class="win.elegentjs.tx.FooService">
-        <property name="transactionManager" ref="transactionManager"/>
+        <property name="transactionManager" ref="transactionManager2"/>
     </bean>
 
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.simple.SimpleJdbcTemplate">
