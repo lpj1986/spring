@@ -2,7 +2,6 @@ package win.elegentjs.jdbc.datasource;
 
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
-import java.sql.SQLFeatureNotSupportedException;
 import java.util.logging.Logger;
 
 /**
@@ -18,7 +17,7 @@ public class RoutingDataSource extends AbstractRoutingDataSource {
     }
 
     @Override
-    public Logger getParentLogger() throws SQLFeatureNotSupportedException {
+    public Logger getParentLogger() {
         return null;
     }
 }

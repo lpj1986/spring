@@ -5,17 +5,13 @@
        xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <description>
-        这是一个最简单的spring IOC
-    </description>
 
-    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="locations">
-            <list>
-                <value>classpath:appconfig.properties</value>
-            </list>
-        </property>
-    </bean>
+    <context:property-placeholder location="classpath:appconfig.properties"/>
+
+    <context:annotation-config/>
+    <context:component-scan base-package="win.elegentjs">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
 
     <!-- id: 对应beanName; name: 对应bean的别名，可多个 -->
     <!-- depends-on 用于显示控制加载流程，有明确的ref时不需要，一般用的也少 -->
@@ -31,7 +27,7 @@
                 <value>2</value>
             </list>
         </property>
-     </bean>
+    </bean>
     <alias name="setterInjection" alias="sI"/>
 
     <bean id="userService" class="win.elegentjs.ioc.UserService">
@@ -237,8 +233,9 @@
         <property name="transactionManager" ref="transactionManager2"/>
     </bean>
 
-    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.simple.SimpleJdbcTemplate">
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
         <constructor-arg index="0" ref="dataSource">
         </constructor-arg>
     </bean>
+
 </beans>

@@ -19,7 +19,7 @@ public class TransactionTemplateSample {
 
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         TransactionTemplate transactionTemplate = (TransactionTemplate) context.getBean("transactionTemplate");
-        DataSource dataSource = (DataSource) context.getBean("dataSource");
+        final DataSource dataSource = (DataSource) context.getBean("dataSource");
 
         transactionTemplate.execute(new TransactionCallbackWithoutResult() {
 

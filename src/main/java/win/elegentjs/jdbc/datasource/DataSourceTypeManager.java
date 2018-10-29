@@ -7,7 +7,7 @@ package win.elegentjs.jdbc.datasource;
  */
 public class DataSourceTypeManager {
 
-    private static final ThreadLocal<DataSourceEnum> dataSourceTypes = new ThreadLocal<>();
+    private static final ThreadLocal<DataSourceEnum> dataSourceTypes = new ThreadLocal<DataSourceEnum>();
 
 
     public static DataSourceEnum get() {

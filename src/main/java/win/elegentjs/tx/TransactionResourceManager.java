@@ -7,7 +7,7 @@ import java.sql.Connection;
  */
 public class TransactionResourceManager {
 
-    private static ThreadLocal<Connection> resources = new ThreadLocal<>();
+    private static ThreadLocal<Connection> resources = new ThreadLocal<Connection>();
 
     public static Connection getResource() {
         return resources.get();
