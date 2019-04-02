@@ -13,7 +13,7 @@ public class PerformanceAspect {
 
     private static final Log log = LogFactory.getLog(PerformanceAspect.class);
 
-    @Pointcut("execution(* win..PerformanceService.*(..))")
+    @Pointcut("execution(* win..service..*.*(..))")
     public void pointcutName() {
 
     }

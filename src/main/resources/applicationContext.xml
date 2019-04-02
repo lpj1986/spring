@@ -3,239 +3,82 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:aop="http://www.springframework.org/schema/aop"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
-
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/aop
+                           http://www.springframework.org/schema/aop/spring-aop.xsd
+                           http://www.springframework.org/schema/tx
+                           http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <context:property-placeholder location="classpath:appconfig.properties"/>
 
     <context:annotation-config/>
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
     <context:component-scan base-package="win.elegentjs">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
-    <!-- id: 对应beanName; name: 对应bean的别名，可多个 -->
-    <!-- depends-on 用于显示控制加载流程，有明确的ref时不需要，一般用的也少 -->
-    <bean id="cInjection" name="cI,cI2,cI3" class="win.elegentjs.ioc.CInjection" depends-on="userService">
-        <constructor-arg index="0" ref="userService"/>
-    </bean>
 
-    <bean id="setterInjection" class="win.elegentjs.ioc.SetterInjection">
-        <property name="userService" ref="userService"/>
-        <property name="nameList">
-            <list>
-                <value>1</value>
-                <value>2</value>
-            </list>
-        </property>
-    </bean>
-    <alias name="setterInjection" alias="sI"/>
-
-    <bean id="userService" class="win.elegentjs.ioc.UserService">
-        <property name="name" value="${name}"/>
-        <property name="age" value="20"/>
-        <property name="decodedPassword" value="haha"/>
-    </bean>
-
-
-
-    <bean id="shape" class="win.elegentjs.ioc.factory.StaticShapeFactory" factory-method="getInstance">
-        <constructor-arg index="0" value="hello"/>
-    </bean>
-
-
-    <bean id="instanceFactory" class="win.elegentjs.ioc.factory.InstanceShapeFactory"/>
-
-    <bean id="shape2" factory-bean="instanceFactory" factory-method="getInstance"/>
-
-
-
-    <bean class="win.elegentjs.ioc.beanpostprocessor.PasswordDecodePostProcessor">
-
-    </bean>
-
-    <bean class="win.elegentjs.ioc.event.LoadCompleteListener"/>
-
-
-    <bean id="performanceInterceptor" class="win.elegentjs.aop.advice.PerformanceInterceptor"/>
-    <bean id="myPointcut" class="win.elegentjs.aop.pointcut.MyPointcut">
-        <property name="pattern" value=".+Service"/>
-    </bean>
-
-    <bean id="advisor" class="win.elegentjs.aop.advisor.MyDefaultPointcutAdvisor">
-        <property name="advice" ref="performanceInterceptor"/>
-        <property name="pointcut" ref="myPointcut"/>
-    </bean>
-
-    <bean id="performanceService" class="win.elegentjs.aop.advisor.PerformanceService"/>
-
-    <bean id="proxyFactory" class="org.springframework.aop.framework.ProxyFactory"/>
-
-    <!--<bean id="proxy" class="org.springframework.aop.framework.ProxyFactoryBean">
-        <property name="target" ref="performanceService"/>
-        <property name="interceptorNames">
-            <list>
-                <value>advisor</value>
-            </list>
-        </property>
-    </bean>-->
-
-
-    <!--<bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
-        <property name="beanNames">
-            <list>
-                <value>performanceService</value>
-            </list>
-        </property>
-
-        <property name="interceptorNames">
-            <list>
-                <value>advisor</value>
-            </list>
-        </property>
-    </bean>-->
-
-    <!--<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>-->
-
-    <!--
-    <bean class="org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator"/>
-    -->
-
-    <aop:config>
-        <aop:aspect ref="aspect"/>
-    </aop:config>
-
-
-    <bean id="aspect" class="win.elegentjs.aop.aspectj.PerformanceAspect"/>
-
-
-    <bean id="master" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+    <bean id="master" parent="abstract" >
         <!-- 基本属性 url、user、password -->
-        <property name="url" value="${jdbc.url}" />
-        <property name="username" value="${jdbc.username}" />
-        <property name="password" value="${jdbc.password}" />
-
-        <!-- 配置初始化大小、最小、最大 -->
-        <property name="initialSize" value="1" />
-        <property name="minIdle" value="1" />
-        <property name="maxActive" value="20" />
-
-        <!-- 配置获取连接等待超时的时间 -->
-        <property name="maxWait" value="60000" />
-
-        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
-        <property name="timeBetweenEvictionRunsMillis" value="60000" />
-
-        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
-        <property name="minEvictableIdleTimeMillis" value="300000" />
-
-        <property name="testWhileIdle" value="true" />
-        <property name="testOnBorrow" value="false" />
-        <property name="testOnReturn" value="false" />
-
-        <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
-        <property name="poolPreparedStatements" value="true" />
-        <property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
-
-        <!-- 配置监控统计拦截的filters -->
-        <property name="filters" value="stat" />
+        <property name="url" value="${master.jdbc.url}" />
+        <property name="username" value="${master.jdbc.username}" />
+        <property name="password" value="${master.jdbc.password}" />
     </bean>
 
 
-    <bean id="slave1" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+    <bean id="slave" parent="abstract">
         <!-- 基本属性 url、user、password -->
-        <property name="url" value="${jdbc.url}" />
-        <property name="username" value="${jdbc.username}" />
-        <property name="password" value="${jdbc.password}" />
+        <property name="url" value="${slave.jdbc.url}" />
+        <property name="username" value="${slave.jdbc.username}" />
+        <property name="password" value="${slave.jdbc.password}" />
 
-        <!-- 配置初始化大小、最小、最大 -->
-        <property name="initialSize" value="1" />
-        <property name="minIdle" value="1" />
-        <property name="maxActive" value="20" />
-
-        <!-- 配置获取连接等待超时的时间 -->
-        <property name="maxWait" value="60000" />
-
-        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
-        <property name="timeBetweenEvictionRunsMillis" value="60000" />
-
-        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
-        <property name="minEvictableIdleTimeMillis" value="300000" />
-
-        <property name="testWhileIdle" value="true" />
-        <property name="testOnBorrow" value="false" />
-        <property name="testOnReturn" value="false" />
-
-        <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
-        <property name="poolPreparedStatements" value="true" />
-        <property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
-
-        <!-- 配置监控统计拦截的filters -->
-        <property name="filters" value="stat" />
-    </bean>
-
-    <bean id="slave2" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
-        <!-- 基本属性 url、user、password -->
-        <property name="url" value="${jdbc.url}" />
-        <property name="username" value="${jdbc.username}" />
-        <property name="password" value="${jdbc.password}" />
-
-        <!-- 配置初始化大小、最小、最大 -->
-        <property name="initialSize" value="1" />
-        <property name="minIdle" value="1" />
-        <property name="maxActive" value="20" />
-
-        <!-- 配置获取连接等待超时的时间 -->
-        <property name="maxWait" value="60000" />
-
-        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
-        <property name="timeBetweenEvictionRunsMillis" value="60000" />
-
-        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
-        <property name="minEvictableIdleTimeMillis" value="300000" />
-
-        <property name="testWhileIdle" value="true" />
-        <property name="testOnBorrow" value="false" />
-        <property name="testOnReturn" value="false" />
-
-        <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
-        <property name="poolPreparedStatements" value="true" />
-        <property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
-
-        <!-- 配置监控统计拦截的filters -->
-        <property name="filters" value="stat" />
     </bean>
 
     <bean id="dataSource" class="win.elegentjs.jdbc.datasource.RoutingDataSource">
-        <property name="defaultTargetDataSource" ref="master"/>
-
-        <property name="targetDataSources">
-            <map key-type="win.elegentjs.jdbc.datasource.DataSourceEnum">
-                <entry key="MASTER" value-ref="master"/>
-                <entry key="SLAVE1" value-ref="slave1"/>
-                <entry key="SLAVE2" value-ref="slave2"/>
-            </map>
-        </property>
+        <property name="masterDataSource" ref="master"/>
+        <property name="slaveDataSource" ref="slave"/>
     </bean>
+
 
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
-        <property name="transactionManager" ref="transactionManager"/>
+    <tx:annotation-driven transaction-manager="transactionManager"></tx:annotation-driven>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate ">
+         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <bean id="transactionManager2" class="win.elegentjs.tx.JdbcTransactionManager">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
+    <bean id="abstract" abstract="true" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <!-- 配置初始化大小、最小、最大 -->
+        <property name="initialSize" value="1" />
+        <property name="minIdle" value="1" />
+        <property name="maxActive" value="20" />
 
-    <bean id="fooService" class="win.elegentjs.tx.FooService">
-        <property name="transactionManager" ref="transactionManager2"/>
-    </bean>
+        <!-- 配置获取连接等待超时的时间 -->
+        <property name="maxWait" value="60000" />
 
-    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-        <constructor-arg index="0" ref="dataSource">
-        </constructor-arg>
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="60000" />
+
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="300000" />
+
+        <property name="testWhileIdle" value="true" />
+        <property name="testOnBorrow" value="false" />
+        <property name="testOnReturn" value="false" />
+
+        <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+        <property name="poolPreparedStatements" value="true" />
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
+
+        <!-- 配置监控统计拦截的filters -->
+        <property name="filters" value="stat" />
     </bean>
 
 </beans>

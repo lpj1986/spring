@@ -11,12 +11,8 @@ public enum DataSourceEnum {
     MASTER,
 
     /**
-     * 从库1
+     * 从库
      */
-    SLAVE1,
+    SLAVE
 
-    /**
-     * 从库2
-     */
-    SLAVE2
 }
