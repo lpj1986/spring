@@ -20,7 +20,7 @@ public class Main {
 
         CountDownLatch downLatch = new CountDownLatch(10);
 
-        for (int index = 0; index < 10; index ++) {
+        for (int index = 0; index < 100000; index ++) {
             exe(downLatch, userService, executorService);
         }
 
@@ -48,6 +48,12 @@ public class Main {
             userService.save(user);
 
             downLatch.countDown();
+
+            try {
+                Thread.sleep(1000000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         });
     }
 }
