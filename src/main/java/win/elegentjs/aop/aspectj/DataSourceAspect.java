@@ -3,7 +3,6 @@ package win.elegentjs.aop.aspectj;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -12,7 +11,6 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import win.elegentjs.annotation.DataSource;
 import win.elegentjs.jdbc.datasource.DataSourceContextHolder;
 import win.elegentjs.jdbc.datasource.DataSourceEnum;
 

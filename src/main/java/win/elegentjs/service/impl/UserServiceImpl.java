@@ -1,7 +1,10 @@
 package win.elegentjs.service.impl;
 
 
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,11 +17,12 @@ import java.util.concurrent.Executors;
 
 @Service
 @Transactional(readOnly = true)
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, ApplicationContextAware {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    private ApplicationContext applicationContext;
 
     private ExecutorService executorService = Executors.newCachedThreadPool();
 
@@ -46,5 +50,10 @@ public class UserServiceImpl implements UserService {
 
             return user;
         });
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
     }
 }

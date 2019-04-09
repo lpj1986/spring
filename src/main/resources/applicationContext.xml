@@ -48,7 +48,7 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <tx:annotation-driven transaction-manager="transactionManager"></tx:annotation-driven>
+    <tx:annotation-driven transaction-manager="transactionManager" order="1"></tx:annotation-driven>
 
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate ">
          <property name="dataSource" ref="dataSource"/>
