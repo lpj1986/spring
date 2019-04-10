@@ -6,6 +6,7 @@ public class OrgServiceImpl implements OrgService {
 
     @Override
     public String get(String id) {
+        System.out.println("execute in method get");
         return null;
     }
 }
